@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <locale.h>
+//Discente: Emily Nicole Aguiar Nepomuceno. Matrícula: 202002632402
 //Declaração de variáveis
 int cont=1, presidente, calcular_votos, contagem, calc_presidente=0, menu, cadastro;
 char nome[12][100], cargo[12][100];
