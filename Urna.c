@@ -4,20 +4,20 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <locale.h>
-//Declaração de variáveis
+//DeclaraÃ§Ã£o de variÃ¡veis
 int cont=1, presidente, calcular_votos, contagem, calc_presidente=0, menu, cadastro;
 char nome[12][100], cargo[12][100];
 int numero[12], votos[12]={0,0,0,0,0,0,0,0,0,0,0,0};
 
-//Cadastro da quantidade de candidatos a presidência
+//Cadastro da quantidade de candidatos a presidÃªncia
 void cadastroPresidente(){
   switch(cadastro){
     case 1:
       cont=1;
       for(calc_presidente=0;calc_presidente<3;calc_presidente++){
-        printf("\nDigite o nome do %dº candidato a presidente.\n", cont, setlocale(LC_ALL,""));
+        printf("\nDigite o nome do %dÂº candidato a presidente.\n", cont, setlocale(LC_ALL,""));
         scanf("%s",&nome[calc_presidente]);
-        printf("Digite o número %dº candidato a presidente:\n", cont); 
+        printf("Digite o nÃºmero %dÂº candidato a presidente:\n", cont); 
         scanf("%d", &numero[calc_presidente]);
         cont++;}
       break;}}
@@ -31,51 +31,64 @@ int ContagemVotos(){
     return 0;}
 //Categoria de voto: CONFIRMA - BRANCO - NULO
 int votacao(void){
-  	conf:;
-  	memset(votos, 0, sizeof(votos));
-  	votarpresidente:; 
+  conf:;
+  memset(votos, 0, sizeof (votos));
+  votarpresidente:; 
     printf("Digite o seu voto para PRESIDENTE:\n");
     scanf("%d", &presidente); 
-    if(presidente == numero[0]){
-    	printf("CONFIRMAR?\n  1. SIM    2. NÃO\n");
-    	scanf("%d", &contagem);
-      	switch(contagem){
-        	case 1:
-        		votos[0]++;
-        		printf("Voto Computado.\n");
-        		break;
-        	case 2:
-          		goto votarpresidente;
-        }}
-	else if(presidente == numero[1]){
+    if(presidente==numero[0]){
       
-    	printf("Confirma o voto?\n  1. SIM    2. NÃO\n");
-      	scanf("%d", &contagem);
-      	switch(contagem){
-        	case 1:
-				votos[1]++;
-            	printf("Voto Computado.\n");
-        		break;
-        	case 2:
-    			goto votarpresidente;
+      printf("Confirma o voto?\n  (1) SIM    (2) NÃƒO\n");
+      scanf("%d", &contagem);
+      switch(contagem){
+        case 1:
+          votos[0]++;
+          printf("Voto Computado.\n");
+          break;
+        case 2:
+          goto votarpresidente;
         }
-    }else if(presidente == numero[2]) {
-    	
-      	printf("Confirma o voto?\n  1. SIM    2. NÃO\n");
-      	scanf("%d", &contagem);
+    }else if (presidente==numero[1]) {
+      
+      printf("Confirma o voto?\n  (1) SIM    (2) NÃƒO\n", nome[1]);
+      scanf("%d", &contagem);
+      switch(contagem){
+        case 1:
+          votos[1]++;
+          printf("Voto Computado.\n");
+          //sleep(2);
+          break;
+        case 2:
+          goto votarpresidente;
+        }
+    }else if (presidente==numero[2]) {
+      
+      printf("Confirma o voto no candidato %s?\n  (1) SIM    (2) NÃƒO\n", nome[2]);
+      scanf("%d", &contagem);
         switch(contagem){
-        	case 1:
-            	votos[2]++;
-            	printf("Voto Computado.\n");
-            	break;
-          	case 2:
-            	goto votarpresidente;
+          case 1:
+            votos[2]++;
+            printf("Voto Computado.\n");
+            break;
+          case 2:
+            goto votarpresidente;
           }
+    }else if (presidente=='\n') {
+      printf("Confirmar voto em BRANCO?\n  (1) SIM    (2) NÃƒO\n");
+      scanf("%d", &contagem);
+      switch(contagem){
+        case 1:
+          votos[9]++;
+          printf("Voto Computado.\n");
+          break;
+        case 2:
+          goto conf;
+        } 
     }else if (presidente==-1) {
-        printf("Votação encerrada\n");
+        printf("VotaÃ§Ã£o encerrada.\n Obrigado!\n");
         exit(0);
     }else if(presidente != votos){
-        printf("Confirmar voto NULO?\n  1. SIM    2. NÃO\n");
+        printf("Confirmar voto NULO?\n  (1) SIM    (2) NÃƒO\n");
         scanf("%d", &contagem);
         switch(contagem){
           case 1:
@@ -83,22 +96,10 @@ int votacao(void){
             printf("Voto Computado.\n");
           case 2:
             goto conf;
-          }}
-	else if (presidente =='\n') {
-      printf("Confirmar voto em BRANCO?\n  (1) SIM    (2) NÃO\n");
-      scanf("%d", &contagem);
-      switch(contagem){
-        case 1:
-        	votos[9]++;
-        	printf("Voto Finalizado.\n");
-        	break;
-        case 2:
-          	goto conf;
-        } 
-    }else if (presidente == -1) {
-      	printf("Votação encerrada.\n ");
-      	exit(0);
-    }return 0;}
+          }
+    }
+        
+  return 0;}
   
 //Boletim de urna
 int Boletim(void){
@@ -106,23 +107,23 @@ int Boletim(void){
     presidenteeleito: 
       if(votos[0]>votos[1]){
         if(votos[0]>votos[2]){
-          printf("O PRESIDENTE eleito é %s. Com %d votos.\n\n", nome[0],votos[0]);
+          printf("O PRESIDENTE eleito Ã© %s. Com %d votos.\n\n", nome[0],votos[0]);
           }else if(votos[2]>votos[0]){
           if(votos[2]>votos[1]){
-            printf("O PRESIDENTE eleito é %s. Com %d votos.\n\n", nome[2],votos[2]);
+            printf("O PRESIDENTE eleito Ã© %s. Com %d votos.\n\n", nome[2],votos[2]);
             }else if(votos[1]>votos[0]){
-            printf("O PRESIDENTE eleito é %s. Com %d votos.\n\n", nome[1],votos[1]);
-            }else printf("O PRESIDENTE eleito é %s. Com %d votos.\n\n", nome[0],votos[0]);}
+            printf("O PRESIDENTE eleito Ã© %s. Com %d votos.\n\n", nome[1],votos[1]);
+            }else printf("O PRESIDENTE eleito Ã© %s. Com %d votos.\n\n", nome[0],votos[0]);}
 
       } else if(votos[1]>votos[0]){
           if(votos[1]>votos[2]){
-            printf("O PRESIDENTE eleito é %s. Com %d votos.\n\n", nome[1],votos[1]);
+            printf("O PRESIDENTE eleito Ã© %s. Com %d votos.\n\n", nome[1],votos[1]);
             }else if(votos[2]>votos[0]){
-              printf("O PRESIDENTE eleito é %s. Com %d votos.\n\n", nome[2],votos[2]);}
-              }else printf("O PRESIDENTE eleito é %s. Com %d votos.\n\n", nome[2],votos[2]);
+              printf("O PRESIDENTE eleito Ã© %s. Com %d votos.\n\n", nome[2],votos[2]);}
+              }else printf("O PRESIDENTE eleito Ã© %s. Com %d votos.\n\n", nome[2],votos[2]);
   } else printf("Nenhum voto foi registrado.\n");
   return 0;}
-//Função Principal
+//FunÃ§Ã£o Principal
 int main(void){
   strcpy(nome[9], "Branco");
   strcpy(nome[10], "Nulo");
@@ -130,12 +131,16 @@ int main(void){
   opcao:;
   printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
   printf("\t \tMENU DE URNA");
-  printf("\n\n1. CADASTRAR CANDIDATOS A PRESIDENTE\n2. CANDIDATOS CADASTRADOS.\n3. INICIAR VOTAÇÃO.\n4. BOLETIM DE URNA\n5. APURAÇÃO DE VOTOS - FINAL\n\n", setlocale(LC_ALL,""));
+  printf("\n1. CADASTRAR CANDIDATOS A PRESIDENTE", setlocale(LC_ALL,""));
+  printf("2. CANDIDATOS CADASTRADOS");
+  printf("3. INICIAR VOTAÃ‡ÃƒO");
+  printf("4. BOLETIM DE URNA");
+  printf("5. APURAÃ‡ÃƒO DE VOTOS");
   scanf("%d", &menu);
   printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 
   switch(menu){
-    case 1: //Acesso a função de cadastro de candidatos a presidência
+    case 1: //Acesso a funÃ§Ã£o de cadastro de candidatos a presidÃªncia
       printf("Digite 1 para entrar na no cadastro de candidatos a presidente: ");
       scanf("%d", &cadastro);
       cadastroPresidente();
@@ -147,12 +152,12 @@ int main(void){
       printf("%d - %s\n", numero[calc_presidente], nome[calc_presidente]);
       }
       goto opcao;
-    case 3: //Início da votação
+    case 3: //InÃ­cio da votaÃ§Ã£o
       votacao();
       goto opcao;
       break;
     case 4: //Boletim
-      //CLassificação de votos por presidente
+      //CLassificaÃ§Ã£o de votos por presidente
       printf("\n%s - %d.\n", nome[0],votos[0]);
       printf("\n%s - %d.\n", nome[1],votos[1]);
       printf("\n%s - %d.\n", nome[2],votos[2]);
@@ -160,14 +165,14 @@ int main(void){
       //Votos BRANCOS ou NULOS
       printf("\n%s - %d.\n", nome[9],votos[9]);
       printf("%s - %d.\n", nome[10],votos[10]);
-      //Totalização de votos
+      //TotalizaÃ§Ã£o de votos
       ContagemVotos();
       
       goto opcao;
-    case 5: //Apuração de votos - Final
+    case 5: //ApuraÃ§Ã£o de votos - Final
       ContagemVotos();
       Boletim();
-      printf("VOTAÇÕES ENCERRADAS\n", setlocale(LC_ALL,""));
+      printf("VOTAÃ‡Ã•ES ENCERRADAS\n", setlocale(LC_ALL,""));
       goto opcao;
   }
 return 0;}
