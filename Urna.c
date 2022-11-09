@@ -5,7 +5,7 @@
 #include <string.h>
 
 //VARIÁVEIS GLOBAIS
-static int voto = 0, voto2 = 0, voto3= 0, voto4 = 0, voto5 = 0, branco = 0, nulo = 0, presidente = 7;
+static int voto = 0, voto2 = 0, voto3= 0, voto4 = 0, voto5 = 0, branco = 0, nulo = 0, presidente = 7, invalido = 0;
 static int candidato1 = 33, candidato2 = 34, candidato3 = 35, candidato4 = 36, candidato5 = 40;
 //FUNÇÃO QUE MOSTRA OS 5 CANDIDATOS
 int cadastro(){
@@ -85,6 +85,7 @@ int votacao(){
 				break;
 			default:
 				printf("INVÁLIDO!");
+				invalido = invalido + 1;
 				sleep(1);
 				system("cls");
 	}
@@ -96,7 +97,8 @@ return(main());
 }
 //FUNÇÃO QUE MOSTRA O RESULTADO FINAL DAS ELEIÇÕES
 int resultado(){
-	
+	int total;
+	total = voto + voto2 + voto3 + voto4 + voto5 + nulo + branco;
 	printf("APURAÇÃO DE VOTOS\n");
 	printf("CANDIDATO 1: NÚMERO %d", voto);
 	printf("\nCANDIDATO 2: NÚMERO %d", voto2);
@@ -105,21 +107,23 @@ int resultado(){
 	printf("\nCANDIDATO 5: NÚMERO %d", voto5);
 	printf("\nVOTOS NULOS: %d", nulo);
 	printf("\nVOTOS EM BRANCO: %d", branco);
+	printf("\nVOTOS INVÁLIDOS: %d", invalido);
+	printf("\nTOTAL DE VOTOS: %d", total);
 //ESTRUTURA DE DECISÃO QUE INFORMA QUEM FOI O VENCEDOR DAS ELEIÇÕES	
 	if(voto > voto2 && voto > voto3 && voto > voto4 && voto > voto5){
-		printf("\nCANDIDATO 1 É O VENCEDOR COM %d de VOTOS", voto);
+		printf("\nCANDIDATO 1 É O VENCEDOR COM %d VOTOS", voto);
 	}
 	else if(voto2 > voto && voto2 > voto3 && voto2 > voto4 && voto2 > voto5){
 		printf("\nCANDIDATO 2 É O VENCEDOR COM %d de VOTOS", voto2);
 	}
 	else if(voto3 > voto && voto3 > voto2 && voto3 > voto4 && voto3 > voto5){
-		printf("\nCANDIDATO 3 É O VENCEDOR COM %d de VOTOS", voto3);
+		printf("\nCANDIDATO 3 É O VENCEDOR COM %d VOTOS", voto3);
 	}
 	else if(voto4 > voto && voto4 > voto3 && voto4 > voto2 && voto > voto5){
-		printf("\nCANDIDATO 4 É O VENCEDOR COM %d de VOTOS", voto4);
+		printf("\nCANDIDATO 4 É O VENCEDOR COM %d VOTOS", voto4);
 	}
 	else if(voto5 > voto && voto5 > voto3 && voto5 > voto2 && voto5 > voto4){
-		printf("\nCANDIDATO 5 É O VENCEDOR COM %d de VOTOS", voto5);
+		printf("\nCANDIDATO 5 É O VENCEDOR COM %d VOTOS", voto5);
 	}
 		
 }
